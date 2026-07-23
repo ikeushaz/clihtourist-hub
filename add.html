@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add your card · Friend Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-badge">🎲</span>
+    <span>Friend Hub</span>
+  </a>
+  <div class="nav-links">
+    <a class="btn btn-ghost" href="index.html">← Roster</a>
+  </div>
+</nav>
+
+<section class="hero" style="padding-bottom:0;">
+  <span class="hero-eyebrow">// character creation</span>
+  <h1>Build your <span>card</span></h1>
+  <p>Fill this in once and you'll show up on the roster. Want to change something later? Just ping the admin — edits are handled by them, not through this form.</p>
+</section>
+
+<div class="form-wrap">
+  <form class="form-card" id="card-form">
+
+    <div class="field">
+      <label for="avatar-input">Profile picture</label>
+      <div class="avatar-drop">
+        <img id="avatar-preview" style="display:none;" alt="Preview">
+        <div class="avatar-drop-text" id="avatar-drop-text">Click or drop an image (max 5MB)</div>
+        <input type="file" id="avatar-input" accept="image/*">
+      </div>
+    </div>
+
+    <div class="two-col">
+      <div class="field">
+        <label for="display-name">Display name / nickname *</label>
+        <input type="text" id="display-name" maxlength="40" placeholder="e.g. Moth" required>
+      </div>
+      <div class="field">
+        <label for="pronouns">Pronouns</label>
+        <input type="text" id="pronouns" maxlength="30" placeholder="e.g. she/they">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="discord-username">Discord username *</label>
+      <input type="text" id="discord-username" maxlength="40" placeholder="e.g. mothwhisperer" required>
+    </div>
+
+    <div class="field">
+      <label>Role</label>
+      <div class="role-picker">
+        <label class="role-option selected">
+          <input type="radio" name="role" value="member" checked> Member
+        </label>
+        <label class="role-option">
+          <input type="radio" name="role" value="mod"> Mod
+        </label>
+        <label class="role-option">
+          <input type="radio" name="role" value="owner"> Owner
+        </label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="lore">Lore</label>
+      <textarea id="lore" maxlength="1000" placeholder="How'd you end up here? Origin story, running jokes, whatever you want people to know."></textarea>
+    </div>
+
+    <div class="field">
+      <label>Card color</label>
+      <div class="color-row">
+        <input type="color" id="color-input" value="#8f7ff2">
+        <div class="color-swatches" id="swatches"></div>
+      </div>
+      <div class="hint">This tints your card's border and glow on the roster.</div>
+    </div>
+
+    <div class="field">
+      <label>Stats</label>
+      <div class="slider-field" style="margin-bottom:14px;">
+        <div class="slider-top"><span>🟢 Server activeness</span><output id="out-activeness">50%</output></div>
+        <input type="range" id="slider-activeness" min="0" max="100" value="50">
+      </div>
+      <div class="slider-field" style="margin-bottom:14px;">
+        <div class="slider-top"><span>🎮 Gaming skills</span><output id="out-gaming">50%</output></div>
+        <input type="range" id="slider-gaming" min="0" max="100" value="50">
+      </div>
+      <div class="slider-field">
+        <div class="slider-top"><span>🏳️‍🌈 Gay level</span><output id="out-gayness">50%</output></div>
+        <input type="range" id="slider-gayness" min="0" max="100" value="50">
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary form-submit" id="submit-btn">Add my card</button>
+    <div class="form-msg" id="form-msg"></div>
+  </form>
+</div>
+
+<footer>made with 💜 for the server · not affiliated with Discord</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/add-card.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Member profile · Friend Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-badge">🎲</span>
+    <span>Friend Hub</span>
+  </a>
+  <div class="nav-links">
+    <a class="btn btn-primary" href="add.html">+ Add your card</a>
+  </div>
+</nav>
+
+<div class="profile-wrap">
+  <a class="back-link" href="index.html">← Back to roster</a>
+  <div id="profile-content">
+    <div class="skeleton" style="height:340px;"></div>
+  </div>
+</div>
+
+<footer>made with 💜 for the server · not affiliated with Discord</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>
