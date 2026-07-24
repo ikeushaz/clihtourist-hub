@@ -51,3 +51,60 @@ create policy "Public can view avatars"
 create policy "Public can upload avatars"
   on storage.objects for insert
   with check (bucket_id = 'avatars');
+
+-- ============================================================
+-- 4. Events
+-- ============================================================
+create table if not exists events (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  event_date date not null,
+  event_time time,
+  description text,
+  status text not null default 'upcoming' check (status in ('upcoming', 'logged')),
+  created_at timestamptz not null default now()
+);
+
+alter table events enable row level security;
+
+-- Anyone can view events (upcoming list + history, for all members)
+create policy "Public can view events"
+  on events for select
+  using (true);
+
+-- Anyone can create an event. There's no real login system on this site, so the
+-- "mods/admin only" rule for creating + logging events is enforced client-side with
+-- a shared password (see js/events.js) rather than by the database. Anyone who has
+-- the anon key could technically bypass it -- same trust model as the rest of the site.
+create policy "Public can create events"
+  on events for insert
+  with check (true);
+
+-- Needed so the "log this event" step can flip status from upcoming -> logged
+create policy "Public can update events"
+  on events for update
+  using (true);
+
+-- 5. Event participants -- who joined which event
+create table if not exists event_participants (
+  id uuid primary key default gen_random_uuid(),
+  event_id uuid not null references events(id) on delete cascade,
+  card_id uuid not null references cards(id) on delete cascade,
+  created_at timestamptz not null default now(),
+  unique (event_id, card_id)
+);
+
+alter table event_participants enable row level security;
+
+create policy "Public can view event participants"
+  on event_participants for select
+  using (true);
+
+create policy "Public can add event participants"
+  on event_participants for insert
+  with check (true);
+
+-- Needed so re-logging an event (changing who joined) can clear old entries
+create policy "Public can remove event participants"
+  on event_participants for delete
+  using (true);

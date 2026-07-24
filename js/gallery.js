@@ -1,5 +1,6 @@
 let allCards = [];
 let activeFilter = "all";
+let eventCounts = {};
 
 const roleOrder = { owner: 0, mod: 1, member: 2 };
 
@@ -23,7 +24,18 @@ async function loadCards() {
 
   allCards = (data || []).sort((a, b) => (roleOrder[a.role] ?? 3) - (roleOrder[b.role] ?? 3));
   document.getElementById("roster-count").textContent = `${allCards.length} member${allCards.length === 1 ? "" : "s"}`;
+
+  await loadEventCounts();
   renderGrid();
+}
+
+async function loadEventCounts() {
+  const { data, error } = await supabaseClient.from("event_participants").select("card_id");
+  if (error || !data) return;
+  eventCounts = {};
+  data.forEach((row) => {
+    eventCounts[row.card_id] = (eventCounts[row.card_id] || 0) + 1;
+  });
 }
 
 function renderGrid() {
@@ -39,7 +51,7 @@ function renderGrid() {
     return;
   }
 
-  grid.innerHTML = list.map((card, i) => cardHTML(card, i)).join("");
+  grid.innerHTML = list.map((card, i) => cardHTML(card, i, eventCounts[card.id])).join("");
 }
 
 document.querySelectorAll(".chip").forEach((chip) => {

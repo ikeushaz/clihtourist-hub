@@ -1,4 +1,22 @@
-// Shared helpers used by index.html, profile.html and add.html
+// Shared helpers used by index.html, profile.html, add.html and events.html
+
+// Shared "mod/admin" password gate for creating + logging events.
+// NOTE: this is a soft, client-side gate, not real auth -- see supabase-schema.sql notes.
+const EVENTS_PASSWORD = "ikeucantik";
+
+function formatEventDate(dateStr) {
+  if (!dateStr) return "";
+  const [y, m, d] = dateStr.split("-").map(Number);
+  const date = new Date(y, (m || 1) - 1, d || 1);
+  return date.toLocaleDateString(undefined, { weekday: "short", month: "short", day: "numeric", year: "numeric" });
+}
+
+function formatEventTime(timeStr) {
+  if (!timeStr) return "";
+  const [h, m] = timeStr.split(":").map(Number);
+  const date = new Date(2000, 0, 1, h, m || 0);
+  return date.toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+}
 
 function escapeHtml(str) {
   const div = document.createElement("div");
@@ -55,15 +73,47 @@ function cardStatsHTML(card) {
     </div>`;
 }
 
-function cardHTML(card, index) {
+function dollSVG(card, size) {
   const color = card.color || "#8f7ff2";
   const avatar = card.avatar_url || fallbackAvatar(card.display_name);
+  const clipId = `headclip-${card.id}`;
+  const headPts = "25,12 33,12 33,4 67,4 67,12 75,12 75,46 67,46 67,54 33,54 33,46 25,46";
+  return `
+    <svg class="doll" viewBox="0 0 100 140" width="${size}" shape-rendering="crispEdges" role="img" aria-label="${escapeHtml(card.display_name)}'s character">
+      <defs>
+        <clipPath id="${clipId}"><polygon points="${headPts}" /></clipPath>
+      </defs>
+      <rect x="29" y="128" width="18" height="9" fill="#100c1c" />
+      <rect x="53" y="128" width="18" height="9" fill="#100c1c" />
+      <rect x="31" y="102" width="16" height="28" fill="#2a2140" />
+      <rect x="53" y="102" width="16" height="28" fill="#2a2140" />
+      <rect x="8" y="64" width="17" height="38" fill="${color}" stroke="#100c1c" stroke-width="3" />
+      <rect x="75" y="64" width="17" height="38" fill="${color}" stroke="#100c1c" stroke-width="3" />
+      <rect x="8" y="96" width="17" height="12" fill="#100c1c" />
+      <rect x="75" y="96" width="17" height="12" fill="#100c1c" />
+      <rect x="42" y="52" width="16" height="12" fill="${color}" />
+      <rect x="25" y="60" width="50" height="44" fill="${color}" stroke="#100c1c" stroke-width="3" />
+      <rect x="25" y="60" width="50" height="8" fill="#100c1c" opacity="0.25" />
+      <image href="${avatar}" xlink:href="${avatar}" x="25" y="4" width="50" height="50" preserveAspectRatio="xMidYMid slice" clip-path="url(#${clipId})" />
+      <polygon points="${headPts}" fill="none" stroke="#100c1c" stroke-width="3" stroke-linejoin="miter" />
+    </svg>`;
+}
+
+function starsHTML(count) {
+  if (!count) return "";
+  return "⭐".repeat(count);
+}
+
+function cardHTML(card, index, eventCount) {
+  const color = card.color || "#8f7ff2";
+  const count = eventCount || 0;
   return `
     <a class="card" href="profile.html?id=${card.id}" style="--card-color:${color}; animation-delay:${Math.min(index * 0.05, 0.6)}s">
       <span class="card-role ${card.role}">${roleLabel(card.role)}</span>
-      <img class="card-avatar" src="${avatar}" alt="${escapeHtml(card.display_name)}'s avatar" loading="lazy">
+      <div class="doll-wrap">${dollSVG(card, 96)}</div>
       <div class="card-name">${escapeHtml(card.display_name)}</div>
       <div class="card-pronouns">${escapeHtml(card.pronouns || "")}</div>
       ${cardStatsHTML(card)}
+      ${count > 0 ? `<div class="card-events" title="${count} event${count === 1 ? "" : "s"} joined">${starsHTML(count)}</div>` : ""}
     </a>`;
 }
