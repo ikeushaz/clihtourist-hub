@@ -18,15 +18,25 @@ async function loadProfile() {
   document.title = `${card.display_name} · Friend Hub`;
 
   const color = card.color || "#8f7ff2";
-  const avatar = card.avatar_url || fallbackAvatar(card.display_name);
+
+  const { data: participations } = await supabaseClient
+    .from("event_participants")
+    .select("events(id, title, event_date)")
+    .eq("card_id", id);
+
+  const joinedEvents = (participations || [])
+    .map((p) => p.events)
+    .filter(Boolean)
+    .sort((a, b) => (a.event_date < b.event_date ? 1 : -1));
 
   wrap.innerHTML = `
     <div class="profile-hero" style="--card-color:${color}">
       <div class="profile-top">
-        <img class="profile-avatar" src="${avatar}" alt="${escapeHtml(card.display_name)}'s avatar">
+        <div class="doll-wrap large">${dollSVG(card, 150)}</div>
         <div class="profile-id">
           <h1>${escapeHtml(card.display_name)} <span class="card-role ${card.role}">${roleLabel(card.role)}</span></h1>
           <div class="profile-pronouns">${escapeHtml(card.pronouns || "")}</div>
+          ${card.archetype ? `<div class="card-archetype" style="text-align:left;">${archetypeLabel(card.archetype)}</div>` : ""}
           <div class="profile-username mono">@${escapeHtml(card.discord_username)}</div>
         </div>
       </div>
@@ -45,9 +55,33 @@ async function loadProfile() {
             ${bigStat("🏳️‍🌈 Gayness", card.stat_gayness, "gayness")}
           </div>
         </div>
+
+        <div class="panel" style="grid-column: 1 / -1;">
+          <h3>Achievements${joinedEvents.length ? ` — ${starsHTML(joinedEvents.length)}` : ""}</h3>
+          ${eventsPanelHTML(joinedEvents)}
+        </div>
       </div>
     </div>
   `;
+}
+
+function eventsPanelHTML(joinedEvents) {
+  if (!joinedEvents.length) {
+    return `<p class="lore-text" style="color:var(--text-faint);">Hasn't joined any events yet.</p>`;
+  }
+  return `
+    <ul class="profile-event-list">
+      ${joinedEvents
+        .map(
+          (ev) => `
+        <li class="profile-event-item">
+          <span class="profile-event-star">⭐</span>
+          <a href="events.html">${escapeHtml(ev.title)}</a>
+          <span class="profile-event-date mono">${formatEventDate(ev.event_date)}</span>
+        </li>`
+        )
+        .join("")}
+    </ul>`;
 }
 
 function bigStat(label, value, cls) {

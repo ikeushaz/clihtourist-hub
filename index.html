@@ -6,7 +6,7 @@
 <title>Clihtourist Hub · Roster</title>
 <meta name="description" content="Pick a card, meet the crew.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -17,7 +17,8 @@
     <span>Clihtourist Hub</span>
   </a>
   <div class="nav-links">
-    <a class="btn btn-primary" href="add.html">+ Add your card</a>
+    <a class="btn btn-ghost" href="events.html">Events</a>
+    <a class="btn btn-primary" href="add.html">+ Add your character</a>
   </div>
 </nav>
 
@@ -27,32 +28,45 @@
   <p>A little scrapbook of everyone in the server — pull up a card to see their lore, stats, and chaos level.</p>
 </section>
 
-<section class="roster">
-  <div class="roster-head">
-    <h2>Roster</h2>
-    <span class="roster-count mono" id="roster-count">loading…</span>
-  </div>
+<div class="dashboard-layout">
+  <section class="roster">
+    <div class="roster-head">
+      <h2>Roster</h2>
+      <span class="roster-count mono" id="roster-count">loading…</span>
+    </div>
 
-  <div class="filter-row">
-    <button class="chip active" data-role="all">Everyone</button>
-    <button class="chip" data-role="owner">Owner</button>
-    <button class="chip" data-role="mod">Mods</button>
-    <button class="chip" data-role="member">Members</button>
-  </div>
+    <div class="filter-row">
+      <button class="chip active" data-role="all">Everyone</button>
+      <button class="chip" data-role="owner">Owner</button>
+      <button class="chip" data-role="mod">Mods</button>
+      <button class="chip" data-role="member">Members</button>
+    </div>
 
-  <div class="grid" id="grid">
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-    <div class="skeleton"></div>
-  </div>
-</section>
+    <div class="grid" id="grid">
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+      <div class="skeleton"></div>
+    </div>
+  </section>
 
-<footer>made with 💜 for the server · not affiliated with Discord</footer>
+  <aside class="events-sidebar">
+    <div class="roster-head">
+      <h2>Upcoming events</h2>
+      <a class="roster-count mono" href="events.html" style="text-decoration:underline;">see all →</a>
+    </div>
+    <div class="upcoming-widget" id="upcoming-widget">
+      <div class="skeleton" style="height:70px;"></div>
+    </div>
+  </aside>
+</div>
+
+<footer>made with 💜 for the server by the most useful mod ever· not affiliated with Discord</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
 <script src="js/shared.js"></script>
+<script src="js/upcoming-widget.js"></script>
 <script src="js/gallery.js"></script>
 </body>
 </html>
