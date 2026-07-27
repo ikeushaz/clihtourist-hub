@@ -108,8 +108,11 @@ create policy "Public can add event participants"
 create policy "Public can remove event participants"
   on event_participants for delete
   using (true);
+<<<<<<< HEAD
 
 -- ============================================================
 -- 6. Character archetype (soldier / poet / ruler)
 -- ============================================================
 alter table cards add column if not exists archetype text check (archetype in ('soldier', 'poet', 'ruler'));
+=======
+>>>>>>> 2b3bf417b9a146ec967cc3764a0bb2985e0820a4

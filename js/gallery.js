@@ -51,7 +51,23 @@ function renderGrid() {
     return;
   }
 
+<<<<<<< HEAD
   grid.innerHTML = list.map((card, i) => cardHTML(card, i, eventCounts[card.id])).join("");
+=======
+  const addCard = activeFilter === "all" ? `
+  <a href="add.html" class="card add-card">
+    <div class="add-card-content">
+      <div class="add-icon">➕</div>
+      <h3>Add Your Character</h3>
+      <p>Create your profile and join the crew!</p>
+    </div>
+  </a>
+  ` : "";
+
+  grid.innerHTML =
+    addCard +
+    list.map((card, i) => cardHTML(card, i, eventCounts[card.id])).join("");
+>>>>>>> 2b3bf417b9a146ec967cc3764a0bb2985e0820a4
 }
 
 document.querySelectorAll(".chip").forEach((chip) => {

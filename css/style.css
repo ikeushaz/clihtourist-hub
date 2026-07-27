@@ -371,6 +371,7 @@ button {
   color: var(--text-faint);
   font-size: 1.05rem;
   margin-top: 6px;
+<<<<<<< HEAD
   position: relative;
   z-index: 1;
 }
@@ -381,6 +382,8 @@ button {
   font-family: "JetBrains Mono", monospace;
   font-size: 0.78rem;
   margin-top: 6px;
+=======
+>>>>>>> 2b3bf417b9a146ec967cc3764a0bb2985e0820a4
   position: relative;
   z-index: 1;
 }

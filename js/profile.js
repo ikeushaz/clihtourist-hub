@@ -57,7 +57,11 @@ async function loadProfile() {
         </div>
 
         <div class="panel" style="grid-column: 1 / -1;">
+<<<<<<< HEAD
           <h3>Achievements${joinedEvents.length ? ` — ${starsHTML(joinedEvents.length)}` : ""}</h3>
+=======
+          <h3>Events${joinedEvents.length ? ` — ${starsHTML(joinedEvents.length)}` : ""}</h3>
+>>>>>>> 2b3bf417b9a146ec967cc3764a0bb2985e0820a4
           ${eventsPanelHTML(joinedEvents)}
         </div>
       </div>

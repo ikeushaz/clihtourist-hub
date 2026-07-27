@@ -73,6 +73,7 @@ function cardStatsHTML(card) {
     </div>`;
 }
 
+<<<<<<< HEAD
 function accessoryHandSVG(archetype) {
   if (archetype === "soldier") {
     return `
@@ -107,13 +108,19 @@ function archetypeLabel(archetype) {
   return ARCHETYPE_LABELS[archetype] || "";
 }
 
+=======
+>>>>>>> 2b3bf417b9a146ec967cc3764a0bb2985e0820a4
 function dollSVG(card, size) {
   const color = card.color || "#8f7ff2";
   const avatar = card.avatar_url || fallbackAvatar(card.display_name);
   const clipId = `headclip-${card.id}`;
   const headPts = "25,12 33,12 33,4 67,4 67,12 75,12 75,46 67,46 67,54 33,54 33,46 25,46";
   return `
+<<<<<<< HEAD
     <svg class="doll" viewBox="0 -16 100 156" width="${size}" shape-rendering="crispEdges" role="img" aria-label="${escapeHtml(card.display_name)}'s character">
+=======
+    <svg class="doll" viewBox="0 0 100 140" width="${size}" shape-rendering="crispEdges" role="img" aria-label="${escapeHtml(card.display_name)}'s character">
+>>>>>>> 2b3bf417b9a146ec967cc3764a0bb2985e0820a4
       <defs>
         <clipPath id="${clipId}"><polygon points="${headPts}" /></clipPath>
       </defs>
@@ -125,13 +132,19 @@ function dollSVG(card, size) {
       <rect x="75" y="64" width="17" height="38" fill="${color}" stroke="#100c1c" stroke-width="3" />
       <rect x="8" y="96" width="17" height="12" fill="#100c1c" />
       <rect x="75" y="96" width="17" height="12" fill="#100c1c" />
+<<<<<<< HEAD
       ${accessoryHandSVG(card.archetype)}
+=======
+>>>>>>> 2b3bf417b9a146ec967cc3764a0bb2985e0820a4
       <rect x="42" y="52" width="16" height="12" fill="${color}" />
       <rect x="25" y="60" width="50" height="44" fill="${color}" stroke="#100c1c" stroke-width="3" />
       <rect x="25" y="60" width="50" height="8" fill="#100c1c" opacity="0.25" />
       <image href="${avatar}" xlink:href="${avatar}" x="25" y="4" width="50" height="50" preserveAspectRatio="xMidYMid slice" clip-path="url(#${clipId})" />
       <polygon points="${headPts}" fill="none" stroke="#100c1c" stroke-width="3" stroke-linejoin="miter" />
+<<<<<<< HEAD
       ${card.archetype === "ruler" ? crownSVG() : ""}
+=======
+>>>>>>> 2b3bf417b9a146ec967cc3764a0bb2985e0820a4
     </svg>`;
 }
 
