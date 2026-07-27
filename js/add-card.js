@@ -5,10 +5,11 @@ const msg = document.getElementById("form-msg");
 const submitBtn = document.getElementById("submit-btn");
 let selectedFile = null;
 
-// --- role picker ---
+// --- role & archetype pickers (each .role-picker group manages its own selection) ---
 document.querySelectorAll(".role-option").forEach((opt) => {
   opt.addEventListener("click", () => {
-    document.querySelectorAll(".role-option").forEach((o) => o.classList.remove("selected"));
+    const group = opt.closest(".role-picker");
+    group.querySelectorAll(".role-option").forEach((o) => o.classList.remove("selected"));
     opt.classList.add("selected");
     opt.querySelector("input").checked = true;
   });
@@ -73,6 +74,7 @@ form.addEventListener("submit", async (e) => {
   const pronouns = document.getElementById("pronouns").value.trim();
   const lore = document.getElementById("lore").value.trim();
   const role = form.querySelector('input[name="role"]:checked')?.value || "member";
+  const archetype = form.querySelector('input[name="archetype"]:checked')?.value || "soldier";
   const color = colorInput.value;
   const statActiveness = document.getElementById("slider-activeness").value;
   const statGaming = document.getElementById("slider-gaming").value;
@@ -106,6 +108,7 @@ form.addEventListener("submit", async (e) => {
         pronouns,
         lore,
         role,
+        archetype,
         color,
         avatar_url: avatarUrl,
         stat_activeness: Number(statActiveness),

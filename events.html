@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Events · Clihtourist Hub</title>
+<meta name="description" content="Upcoming hangouts and a history of everything the crew's done.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<nav class="topbar">
+  <a class="brand" href="index.html">
+    <span class="brand-badge">🎲</span>
+    <span>Clihtourist Hub</span>
+  </a>
+  <div class="nav-links">
+    <a class="btn btn-ghost" href="index.html">Roster</a>
+    <button class="btn btn-primary" id="create-event-btn">+ Create event</button>
+  </div>
+</nav>
+
+<section class="hero" style="padding-bottom:0;">
+  
+  <h1>Server <span>Gatherings</span></h1>
+  <p>Everything the crew's got planned, plus a history of everything we've already done together.</p>
+</section>
+
+<section class="roster">
+  <div class="roster-head">
+    <h2>Upcoming events</h2>
+    <span class="roster-count mono" id="upcoming-count">loading…</span>
+  </div>
+  <div class="events-list" id="upcoming-list">
+    <div class="skeleton" style="height:120px;"></div>
+  </div>
+</section>
+
+<section class="roster">
+  <div class="roster-head">
+    <h2>History of events</h2>
+    <span class="roster-count mono" id="history-count">loading…</span>
+  </div>
+  <div class="events-list" id="history-list">
+    <div class="skeleton" style="height:120px;"></div>
+  </div>
+</section>
+
+
+
+<!-- Create Event Modal -->
+<div class="modal-overlay" id="create-modal">
+  <div class="modal">
+    <h3>Create an event</h3>
+    <div class="field">
+      <label for="create-pw">Mod / admin password</label>
+      <input type="password" id="create-pw" placeholder="••••••••" autocomplete="off">
+    </div>
+    <div class="field">
+      <label for="ev-title">Event title *</label>
+      <input type="text" id="ev-title" maxlength="80" placeholder="e.g. Movie night">
+    </div>
+    <div class="two-col">
+      <div class="field">
+        <label for="ev-date">Date *</label>
+        <input type="date" id="ev-date">
+      </div>
+      <div class="field">
+        <label for="ev-time">Time</label>
+        <input type="time" id="ev-time">
+      </div>
+    </div>
+    <div class="field">
+      <label for="ev-desc">Description</label>
+      <textarea id="ev-desc" maxlength="500" placeholder="What's happening, where, anything people should know."></textarea>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="create-cancel" type="button">Cancel</button>
+      <button class="btn btn-primary" id="create-submit" type="button">Create event</button>
+    </div>
+    <div class="form-msg" id="create-msg"></div>
+  </div>
+</div>
+
+<!-- Log Event Modal -->
+<div class="modal-overlay" id="log-modal">
+  <div class="modal">
+    <h3>Log event: <span id="log-event-title"></span></h3>
+    <div class="field">
+      <label for="log-pw">Mod / admin password</label>
+      <input type="password" id="log-pw" placeholder="••••••••" autocomplete="off">
+    </div>
+    <div class="field">
+      <label>Who joined? *</label>
+      <div class="member-checklist" id="member-checklist"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="log-cancel" type="button">Cancel</button>
+      <button class="btn btn-primary" id="log-submit" type="button">Save log</button>
+    </div>
+    <div class="form-msg" id="log-msg"></div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/shared.js"></script>
+<script src="js/events.js"></script>
+</body>
+</html>

@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Add your card · Friend Hub</title>
+<title>Add your character · Friend Hub</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -13,17 +13,18 @@
 <nav class="topbar">
   <a class="brand" href="index.html">
     <span class="brand-badge">🎲</span>
-    <span>Friend Hub</span>
+    <span>Clihtourist Hub</span>
   </a>
   <div class="nav-links">
+    <a class="btn btn-ghost" href="events.html">Events</a>
     <a class="btn btn-ghost" href="index.html">← Roster</a>
   </div>
 </nav>
 
 <section class="hero" style="padding-bottom:0;">
-  <span class="hero-eyebrow">// character creation</span>
-  <h1>Build your <span>card</span></h1>
-  <p>Fill this in once and you'll show up on the roster. Want to change something later? Just ping the admin — edits are handled by them, not through this form.</p>
+  
+  <h1>Build your <span>character</span></h1>
+  <p>Fill this in to show up on the roster. Want to change something later? Just ping the admin @ikeu222 on Discord.</p>
 </section>
 
 <div class="form-wrap">
@@ -70,6 +71,22 @@
     </div>
 
     <div class="field">
+      <label>Archetype</label>
+      <div class="role-picker">
+        <label class="role-option selected">
+          <input type="radio" name="archetype" value="soldier" checked> ⚔️ Soldier
+        </label>
+        <label class="role-option">
+          <input type="radio" name="archetype" value="poet"> 🪶 Poet
+        </label>
+        <label class="role-option">
+          <input type="radio" name="archetype" value="ruler"> 👑 Ruler
+        </label>
+      </div>
+    
+    </div>
+
+    <div class="field">
       <label for="lore">Lore</label>
       <textarea id="lore" maxlength="1000" placeholder="How'd you end up here? Origin story, running jokes, whatever you want people to know."></textarea>
     </div>
@@ -99,12 +116,12 @@
       </div>
     </div>
 
-    <button type="submit" class="btn btn-primary form-submit" id="submit-btn">Add my card</button>
+    <button type="submit" class="btn btn-primary form-submit" id="submit-btn">Add my character</button>
     <div class="form-msg" id="form-msg"></div>
   </form>
 </div>
 
-<footer>made with 💜 for the server · not affiliated with Discord</footer>
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/supabase-config.js"></script>
