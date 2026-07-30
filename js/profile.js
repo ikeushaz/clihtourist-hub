@@ -15,7 +15,7 @@ async function loadProfile() {
     return;
   }
 
-  document.title = `${card.display_name} · Friend Hub`;
+  document.title = `${card.display_name} · Clihtourist Hub`;
 
   const color = card.color || "#8f7ff2";
 
@@ -53,6 +53,13 @@ async function loadProfile() {
             ${bigStat("🟢 Server activeness", card.stat_activeness, "activeness")}
             ${bigStat("🎮 Gaming skills", card.stat_gaming, "gaming")}
             ${bigStat("🏳️‍🌈 Gayness", card.stat_gayness, "gayness")}
+
+            <div class="big-stat achievement-stat">
+                <div class="stat-top">
+                    <span>🏆 Achievements</span>
+                    <output class="stat-value">${joinedEvents.length}</output>
+                </div>
+            </div>
           </div>
         </div>
 
