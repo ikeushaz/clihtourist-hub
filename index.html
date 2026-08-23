@@ -59,7 +59,63 @@
     <div class="upcoming-widget" id="upcoming-widget">
       <div class="skeleton" style="height:70px;"></div>
     </div>
-  </aside>
+
+    <!-- Anonymous Feedback -->
+    <div class="feedback-section">
+
+      <div class="roster-head feedback-title">
+        <div>
+          <h2>Server Feedback???</h2>
+        </div>
+      </div>
+
+      <!-- Feedback Form -->
+      <form id="feedback-form" class="feedback-form">
+
+        <div class="feedback-form-label">
+          <span>▸ LEAVE A COMMENT</span>
+          <span class="feedback-anon">ANONYMOUS</span>
+        </div>
+
+        <textarea
+          id="feedback-input"
+          placeholder="Tell us your experience!..."
+          maxlength="500"
+          required
+        ></textarea>
+
+        <div class="feedback-footer">
+          <span id="feedback-count" class="feedback-count">0 / 500</span>
+
+          <button type="submit" class="btn btn-primary">
+            SEND
+          </button>
+        </div>
+
+      </form>
+
+      <!-- Feedback History -->
+      <div class="feedback-history">
+
+        <div class="feedback-history-head">
+          <div>
+            <h3>FEEDBACK HISTORY</h3>
+            
+          </div>
+
+          <span id="feedback-total" class="feedback-total">
+            0 ENTRIES
+          </span>
+        </div>
+
+        <div id="feedback-list" class="feedback-list">
+          <div class="skeleton" style="height:100px;"></div>
+          <div class="skeleton" style="height:100px;"></div>
+        </div>
+
+      </div>
+
+    </div>
 </div>
 
 <footer>made with 💜 for the server by the most useful mod ever.. *cough* *cough* ikeu · not affiliated with Discord</footer>
@@ -69,5 +125,6 @@
 <script src="js/shared.js"></script>
 <script src="js/upcoming-widget.js"></script>
 <script src="js/gallery.js"></script>
+<script src="js/feedback.js"></script>
 </body>
 </html>
