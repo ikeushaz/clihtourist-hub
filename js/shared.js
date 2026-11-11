@@ -146,6 +146,7 @@ function cardHTML(card, index, eventCount) {
   return `
     <a class="card" href="profile.html?id=${card.id}" style="--card-color:${color}; animation-delay:${Math.min(index * 0.05, 0.6)}s">
       <span class="card-role ${card.role}">${roleLabel(card.role)}</span>
+      ${count >= 5 ? `<img class="card-peak-badge" src="peakbadge.PNG" alt="Peak Badge" title="Peak Badge">` : ""}
       <div class="doll-wrap">${dollSVG(card, 96)}</div>
       <div class="card-name">${escapeHtml(card.display_name)}</div>
       <div class="card-pronouns">${escapeHtml(card.pronouns || "")}</div>

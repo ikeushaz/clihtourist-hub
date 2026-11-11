@@ -1,3 +1,6 @@
+// Join this many events to earn the Peak Badge (matches the note on index.html)
+const PEAK_BADGE_EVENTS = 5;
+
 async function loadProfile() {
   const wrap = document.getElementById("profile-content");
   if (warnIfUnconfigured()) return;
@@ -29,6 +32,8 @@ async function loadProfile() {
     .filter(Boolean)
     .sort((a, b) => (a.event_date < b.event_date ? 1 : -1));
 
+  const hasPeak = joinedEvents.length >= PEAK_BADGE_EVENTS;
+
   wrap.innerHTML = `
     <div class="profile-hero" style="--card-color:${color}">
       <div class="profile-top">
@@ -38,6 +43,7 @@ async function loadProfile() {
           <div class="profile-pronouns">${escapeHtml(card.pronouns || "")}</div>
           ${card.archetype ? `<div class="card-archetype" style="text-align:left;">${archetypeLabel(card.archetype)}</div>` : ""}
           <div class="profile-username mono">@${escapeHtml(card.discord_username)}</div>
+          ${hasPeak ? peakBadgeButtonHTML() : ""}
         </div>
       </div>
 
@@ -70,6 +76,8 @@ async function loadProfile() {
       </div>
     </div>
   `;
+
+  if (hasPeak) setupPeakBadgeViewer(card.display_name);
 }
 
 function eventsPanelHTML(joinedEvents) {
@@ -97,6 +105,36 @@ function bigStat(label, value, cls) {
       <div class="stat-top"><span>${label}</span><output class="stat-value">${value}%</output></div>
       <div class="stat-track"><div class="stat-fill ${cls}" style="width:${value}%"></div></div>
     </div>`;
+}
+
+function peakBadgeButtonHTML() {
+  return `
+    <button type="button" class="peak-badge-btn" id="peak-badge-btn" aria-label="Click to view Peak Badge">
+      <img src="peakbadge.PNG" alt="Peak Badge" class="peak-badge-thumb">
+      <span>Click to view badge</span>
+    </button>`;
+}
+
+function setupPeakBadgeViewer(name) {
+  const overlay = document.createElement("div");
+  overlay.className = "modal-overlay";
+  overlay.id = "peak-badge-modal";
+  overlay.innerHTML = `
+    <div class="modal peak-badge-modal">
+      <h3>🌟 Peak Badge</h3>
+      <img src="peakbadge.PNG" alt="Peak Badge" class="peak-badge-large">
+      <p class="lore-text peak-badge-caption">${escapeHtml(name)} joined ${PEAK_BADGE_EVENTS}+ events.</p>
+      <div class="modal-actions">
+        <button class="btn btn-ghost" id="peak-badge-close" type="button">Close</button>
+      </div>
+    </div>`;
+  document.body.appendChild(overlay);
+
+  const close = () => overlay.classList.remove("open");
+  document.getElementById("peak-badge-btn").addEventListener("click", () => overlay.classList.add("open"));
+  document.getElementById("peak-badge-close").addEventListener("click", close);
+  overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 }
 
 loadProfile();
